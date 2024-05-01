@@ -1,17 +1,19 @@
 import { Router } from "express";
-import { Register } from "../controllers/auth.controller.js";
+import { register, failRegister } from "../controllers/auth.controller.js";
+import passport from "passport";
 
 const router = Router()
 
 router.post("/login",()=>{
 
 })
-
-router.post("/register" , Register)
+router.post("/register",passport.authenticate("register",{failureRedirect:"/auth/fail-register"}) , register)
 
 router.post("/logout" ,()=>{
 
 })
+
+
 
 router.get("/current" ,()=>{
 
@@ -20,5 +22,7 @@ router.get("/current" ,()=>{
 router.post("/change-password" ,()=>{
 
 })
+
+router.post("/fail-register", failRegister)
 
 export default router
