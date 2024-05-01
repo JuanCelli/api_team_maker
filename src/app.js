@@ -14,13 +14,6 @@ const mongoUrlDb = config.urlMongo
 const app = express()
 
 initializePassport()
-app.use(passport.session())
-
-app.use(passport.initialize())
-app.use(express.json())
-
-app.use("/auth",authRouter)
-
 
 app.use(session(
     {
@@ -34,6 +27,13 @@ app.use(session(
         saveUninitialized:true
     }
 ))
+app.use(passport.session())
+
+app.use(passport.initialize())
+app.use(express.json())
+
+app.use("/auth",authRouter)
+
 
 app.listen(PORT, ()=>{
     console.log(`Servidor inicializado en puerto ${PORT}`)

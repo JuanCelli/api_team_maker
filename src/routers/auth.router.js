@@ -23,6 +23,6 @@ router.post("/change-password" ,()=>{
 
 })
 
-router.post("/fail-register", failRegister)
+router.get("/fail-register", failRegister)
 
 export default router

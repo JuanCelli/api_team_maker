@@ -26,6 +26,10 @@ const initializePassport = () =>{
             }
         }
     ))
+
+    passport.serializeUser((user, done) => {
+        done(null, user._id);
+      });
 }
 
 export default initializePassport
