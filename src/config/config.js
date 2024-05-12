@@ -32,4 +32,6 @@ export default {
     urlMongo: process.env.MONGO_URL,
     adminName: process.env.ADMIN_NAME,
     adminPassword: process.env.ADMIN_PASSWORD,
+    clientIdGoogle: process.env.CLIENT_ID_GOOGLE,
+    clientSecretGoogle: process.env.CLIENT_SECRET_GOOGLE,
 }
