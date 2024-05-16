@@ -8,12 +8,15 @@ import passport from 'passport'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
 import ErrorHandler from './errors/middlewares/ErrorHandler.js'
+import cookieParser from 'cookie-parser'
 
 
 const PORT = config.port
 const mongoUrlDb = config.urlMongo
+const PRIVATE_KEY = config.privateKey
 
 const app = express()
+app.use(cookieParser())
 
 
 initializePassport()
@@ -22,9 +25,9 @@ app.use(session(
     {
         store: MongoStore.create({
             mongoUrl: mongoUrlDb,
-            ttl: 60 * 10
+            ttl: 60 * 60
         }),
-        secret:"coderSecret",
+        secret:PRIVATE_KEY,
         resave:false,
         saveUninitialized:true
     }

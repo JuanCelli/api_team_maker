@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { register, failRegister, authGoogleSuccess } from "../controllers/auth.controller.js";
+import { register, failRegister, authGoogleSuccess, login, failLogin } from "../controllers/auth.controller.js";
 import passport from "passport";
 
 
@@ -7,10 +7,9 @@ import passport from "passport";
 
 const router = Router()
 
-router.post("/login",()=>{
+router.post("/login",passport.authenticate("login",{failureRedirect:"/auth/login/failure"}),login)
 
-})
-router.post("/register",passport.authenticate("register",{failureRedirect:"/auth/fail-register"}) , register)
+router.post("/register",passport.authenticate("register",{failureRedirect:"/auth/register/failure"}) , register)
 
 router.get("/google",passport.authenticate("google",{scope:['email','profile']}))
 
@@ -33,5 +32,6 @@ router.post("/change-password" ,()=>{
 })
 
 router.get("/register/failure", failRegister)
+router.get("/login/failure", failLogin)
 
 export default router

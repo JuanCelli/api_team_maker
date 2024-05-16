@@ -19,3 +19,19 @@ export const getUserById = async (req,res,next)=>{
         next(error)
     }
 }
+
+export const getUserByEmail = async (req,res,next)=>{
+    try{
+        const {email} = req.params
+        const user = await userService.getUserByEmail(email)
+        if(!user){
+            CustomError.createError({
+                code:errorsEnum.NOT_FOUND,
+                message: "Usuario no encontrado."
+            })
+        }
+        res.status(200).json(user)
+    }catch (error) {
+        next(error)
+    }
+}

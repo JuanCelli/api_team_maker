@@ -1,5 +1,5 @@
-import createHash from "../utils/createHash.js";
-import { generateRandomPassword } from "../utils/generateRandomPassword.js";
+import createHash from "../auth/utils/createHash.js";
+import { generateRandomPassword } from "../auth/utils/generateRandomPassword.js";
 
 export class dtoRegister{
     constructor(user) {
@@ -21,5 +21,16 @@ export class dtoRegisterGoogle{
         this.age = user.age || 18;
         this.email = user.email;
         this.password = createHash(generateRandomPassword())
+    }
+};
+
+export class dtoJwt{
+    constructor(user) {
+        this.first_name = user.first_name;
+        this.last_name = user.last_name;
+        this.full_name = this.first_name + " " + this.last_name;
+        this.age = user.age;
+        this.email = user.email;
+        this.role = user.role;
     }
 };

@@ -34,4 +34,5 @@ export default {
     adminPassword: process.env.ADMIN_PASSWORD,
     clientIdGoogle: process.env.CLIENT_ID_GOOGLE,
     clientSecretGoogle: process.env.CLIENT_SECRET_GOOGLE,
+    privateKey: process.env.PRIVATE_KEY,
 }

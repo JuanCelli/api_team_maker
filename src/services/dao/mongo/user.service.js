@@ -13,7 +13,7 @@ class UserManagerMongo{
     }
     async getUserById(id){
         try {
-            const user = await userModel.findById(id, fieldUser)
+            const user = await userModel.findById(id)
             return user
         } catch (error){
             return error
@@ -22,7 +22,7 @@ class UserManagerMongo{
 
     async getUserByEmail(email){
         try {
-            const user = await userModel.findOne({email:email}, fieldUser)
+            const user = await userModel.findOne({email:email})
             return user
         } catch (error){
             return error
