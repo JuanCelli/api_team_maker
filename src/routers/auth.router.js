@@ -1,21 +1,24 @@
 import { Router } from "express";
-import { register, failRegister, authGoogleSuccess, login, failLogin } from "../controllers/auth.controller.js";
+import { register, failRegister, login, failLogin } from "../controllers/auth.controller.js";
 import passport from "passport";
+import { passportCall } from "../auth/passport.callback.js";
+
+
 
 
 
 
 const router = Router()
 
-router.post("/login",passport.authenticate("login",{failureRedirect:"/auth/login/failure"}),login)
+router.post("/login",passportCall("login",{failureRedirect:"/auth/login/failure"}),login)
 
-router.post("/register",passport.authenticate("register",{failureRedirect:"/auth/register/failure"}) , register)
+router.post("/register",passportCall("register",{failureRedirect:"/auth/register/failure"}) , register)
 
 router.get("/google",passport.authenticate("google",{scope:['email','profile']}))
 
 router.get("/google/callback",passport.authenticate( 'google', {successRedirect: '/auth/google/success',failureRedirect: '/auth/register/failure'}))
 
-router.get("/google/success",authGoogleSuccess)
+router.get("/google/success",login)
 
 router.post("/logout" ,()=>{
 

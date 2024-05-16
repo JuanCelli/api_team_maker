@@ -24,18 +24,6 @@ export const login = async (req,res,next)=>{
     }
 }
 
-
-export const authGoogleSuccess = async (req,res,next)=>{
-    try {
-        res.status(201).json({
-            msj: "Usuario registrado con éxito",
-            user: req.user
-        })
-    } catch (error) {
-        next(error)
-    }
-}
-
 export const failRegister = async (req,res,next)=>{
     try {
         res.status(400).json({error: "fail register"})

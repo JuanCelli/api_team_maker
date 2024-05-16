@@ -50,7 +50,6 @@ const initializePassport = () =>{
                 const {email,password} = req.body
 
                 const user = await userService.getUserByEmail(email)
-                console.log(user)
                 if(!user){
                     return done(null, false)
                 }
@@ -71,8 +70,6 @@ const initializePassport = () =>{
             secretOrKey: PRIVATE_KEY
         }, async (jwt_payload, done) => {
             try {
-                console.log("JWT obtenido del Payload");
-                console.log(jwt_payload);
                 return done(null, jwt_payload)
             } catch (error) {
                 return done(error)
