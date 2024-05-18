@@ -13,6 +13,7 @@ export const passportCall = (strategy, options = {}) => {
                     if(options.successRedirect){
                         return res.redirect(options.successRedirect)
                     }
+                    req.user = user
                     next();
             })(req, res, next)
         }
