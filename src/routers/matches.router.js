@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createMatch, getMatchById, joinPlayer } from "../controllers/matches.controller.js";
+import { createMatch, deleteMatch, getMatchById, joinPlayer, removePlayer } from "../controllers/matches.controller.js";
 import { validInputId } from "../middlewares/validInputId.js";
 import passport from "passport";
 
@@ -10,6 +10,10 @@ router.get("/:idMatch",validInputId,passport.authenticate("current"),getMatchByI
 
 router.post("/",passport.authenticate("current"),createMatch)
 
-router.post("/join/:id/to/:idMatch/",validInputId,passport.authenticate("current"),joinPlayer)
+router.post("/join/:id/to/:idMatch",validInputId,passport.authenticate("current"),joinPlayer)
+
+router.post("/remove/:id/to/:idMatch",validInputId,passport.authenticate("current"),removePlayer)
+
+router.delete("/:idMatch",validInputId,passport.authenticate("current"),deleteMatch)
 
 export default router

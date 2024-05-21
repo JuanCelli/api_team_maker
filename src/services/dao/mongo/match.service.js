@@ -34,8 +34,7 @@ class MatchManagerMongo{
             if(!user){
                 return null
             }
-            console.log(user)
-            const matchUpdate = await matchModel.findOneAndUpdate(idMatch,{$push:{players:id}},{new:true, useFindAndModify:false})
+            const matchUpdate = await matchModel.findByIdAndUpdate(idMatch,{$push:{players:id}},{new:true, useFindAndModify:false})
             return matchUpdate
         } catch (error){
             return error
@@ -47,8 +46,16 @@ class MatchManagerMongo{
             if(!user){
                 return null
             }
-            const matchUpdate = await matchModel.findOneAndUpdate(idMatch,{$pull:{players:id}},{new:true, useFindAndModify:false})
+            const matchUpdate = await matchModel.findByIdAndUpdate(idMatch,{$pull:{players:id}},{new:true, useFindAndModify:false})
             return matchUpdate
+        } catch (error){
+            return error
+        }
+    }
+    async deleteMatch(idMatch){
+        try {
+            const response = await matchModel.deleteOne({_id:idMatch})
+            return response
         } catch (error){
             return error
         }
