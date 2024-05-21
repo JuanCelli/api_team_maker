@@ -32,8 +32,9 @@ class MatchManagerMongo{
         try {
             const user = await userModel.findById(id)
             if(!user){
-                new null
+                return null
             }
+            console.log(user)
             const matchUpdate = await matchModel.findOneAndUpdate(idMatch,{$push:{players:id}},{new:true, useFindAndModify:false})
             return matchUpdate
         } catch (error){
@@ -44,7 +45,7 @@ class MatchManagerMongo{
         try {
             const user = await userModel.findById(id)
             if(!user){
-                new null
+                return null
             }
             const matchUpdate = await matchModel.findOneAndUpdate(idMatch,{$pull:{players:id}},{new:true, useFindAndModify:false})
             return matchUpdate

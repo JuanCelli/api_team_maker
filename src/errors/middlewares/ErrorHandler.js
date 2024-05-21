@@ -11,7 +11,7 @@ const ErrorHandler = (error, req, res, next) => {
     }
 
     console.error(error.message)
-    res.status(error.code).json({ status: "error", error: error.message });
+    res.status(error.code).json({ status: "error", error: error.message, cause: error.cause });
 }
 
 export default ErrorHandler

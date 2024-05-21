@@ -26,6 +26,7 @@ export class dtoRegisterGoogle{
 
 export class dtoJwt{
     constructor(user) {
+        this._id = user._id;
         this.first_name = user.first_name;
         this.last_name = user.last_name;
         this.full_name = this.first_name + " " + this.last_name;
