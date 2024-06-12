@@ -7,6 +7,7 @@ export class dtoCreateMatch{
         this.ageRange = data.ageRange;
         this.typeGender = data.typeGender;
         this.location = data.location;
+        this.league = data.league;
         this.creatorId = creatorId;
         this.players = [creatorId];
     }

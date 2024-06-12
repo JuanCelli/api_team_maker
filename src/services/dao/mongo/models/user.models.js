@@ -10,8 +10,19 @@ const userSchema = new Schema({
     status:{type: Boolean,default: true},
     registeredBy:{type: String,default: "local"},
     role:{type:String, default:"user"},
-    last_connection: {type:Date, default: Date.now}
+    last_connection: {type:Date, default: Date.now},
+    leagues:{type:[leagueSchemaPlayer], default:[]}
 })
+
+const leagueSchemaPlayer = new Schema({
+    id: {type: Schema.Types.ObjectId,ref: 'leagues',required: true},
+    elo: {type: Number,default:1200},
+    played: {type: Number,default:0},
+    wins: {type: Number,default:0},
+    losses: {type: Number,default:0},
+    ties: {type: Number,default:0},
+    goals: {type: Number,default:0}
+  })
 
 const userModel = model ("users",userSchema)
 export default userModel
