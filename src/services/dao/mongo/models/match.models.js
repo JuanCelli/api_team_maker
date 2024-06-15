@@ -10,8 +10,9 @@ const matchSchema = new Schema({
     status:{type: Boolean,default: true},
     creationDate: {type:Date, default: Date.now},
     creatorId:{type: Schema.Types.ObjectId, required:true, ref: 'users'},
-    league:{type: Schema.Types.ObjectId, required:true, ref: 'leagues'},
-    players:[{type: Schema.Types.ObjectId, ref: 'users', default:[]}]
+    league:{type: Schema.Types.ObjectId, ref: 'leagues'},
+    players:[{type: Schema.Types.ObjectId, ref: 'users', default:[]}],
+    result:{type: Schema.Types.ObjectId, ref: 'results'}
 })
 
 const matchModel = model ("matches",matchSchema)

@@ -14,7 +14,7 @@ class MatchManagerMongo{
     }
     async getMatchById(id){
         try {
-            const match = await matchModel.findById(id)
+            const match = await matchModel.findById(id).populate("league").populate("players").populate("result")
             return match
         } catch (error){
             return error
@@ -22,7 +22,7 @@ class MatchManagerMongo{
     }
     async getMatchsByCreator(id){
         try {
-            const match = await matchModel.find({creatorId:id})
+            const match = await matchModel.find({creatorId:id}).populate("league").populate("players").populate("result")
             return match
         } catch (error){
             return error

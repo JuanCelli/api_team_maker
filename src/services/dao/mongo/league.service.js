@@ -13,20 +13,13 @@ class LeagueManagerMongo{
     }
     async getLeagueById(id){
         try {
-            const league = await leagueModel.findById(id)
+            const league = await leagueModel.findById(id).populate("matches")
             return league
         } catch (error){
             return error
         }
     }
-    async getMatchsByCreator(id){
-        try {
-            const match = await matchModel.find({creatorId:id})
-            return match
-        } catch (error){
-            return error
-        }
-    }
+
     async addMatch(idMatch, idLeague){
         try {
             const match = await matchModel.findById(idMatch)
@@ -38,6 +31,7 @@ class LeagueManagerMongo{
                 return null
             }
             const leagueUpdate = await leagueModel.findByIdAndUpdate(idLeague,{$push:{matches:id}},{new:true, useFindAndModify:false})
+            const matchUpdate = await matchModel.findByIdAndUpdate(idMatch,{league:idLeague},{new:true, useFindAndModify:false})
             return leagueUpdate
         } catch (error){
             return error
