@@ -10,9 +10,9 @@ router.get("/:idMatch",validInputId,passport.authenticate("current"),getMatchByI
 
 router.post("/",passport.authenticate("current"),createMatch)
 
-router.post("/join/:id/to/:idMatch",validInputId,passport.authenticate("current"),joinPlayer)
+router.post("/:idMatch/join/:id",validInputId,passport.authenticate("current"),joinPlayer)
 
-router.post("/remove/:id/to/:idMatch",validInputId,passport.authenticate("current"),removePlayer)
+router.post("/:idMatch/remove/:id",validInputId,passport.authenticate("current"),removePlayer)
 
 router.delete("/:idMatch",validInputId,passport.authenticate("current"),deleteMatch)
 

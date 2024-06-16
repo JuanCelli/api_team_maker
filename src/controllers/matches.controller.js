@@ -1,7 +1,8 @@
 import { dtoCreateMatch } from "../dto/dto.match.js"
+import { dtoCreateResult } from "../dto/dto.result.js"
 import CustomError from "../errors/custom/CustomError.js"
 import errorsEnum from "../errors/errors.enum.js"
-import matchService from "../services/dao/mongo/match.service.js"
+import {matchService} from "../services/service.js"
 
 
 
@@ -50,7 +51,7 @@ export const joinPlayer = async (req,res,next)=>{
             })
         }
 
-        if(match.players.includes(id)){
+        if(match.players.find((player)=>player._id==id)){
             CustomError.createError({
                 code: errorsEnum.BAD_REQUEST,
                 message: "El jugador que intenta unirse ya está dentro del partido."
@@ -127,6 +128,45 @@ export const deleteMatch = async (req,res,next)=>{
             })
         }
         res.status(200).json({mesagge:"Partido eliminado con éxito"})
+    }catch (error) {
+        next(error)
+    }
+}
+
+export const updateResult = async (req,res,next)=>{
+    try{
+        const {idMatch} = req.params
+        const data = new dtoCreateResult(req.body,idMatch)
+
+        const match = await matchService.getMatchById(idMatch)
+
+        if(!match){
+            CustomError.createError({
+                code: errorsEnum.NOT_FOUND,
+                message: "El partido no ha sido encontrado",
+                cause: "Partido no encontrado"
+            })
+        }
+        for (const goal of data.goals) {
+            if(!match.players.includes(goal.player)){
+                CustomError.createError({
+                    code: errorsEnum.BAD_REQUEST,
+                    message: `El jugador (ID: ${goal.player}) no está dentro del partido.`,
+                    cause: "El jugador al que se le inputó gol/es no está dentro del partido" 
+                })
+            }
+        }
+
+        const result = await matchService.updateResult(data)
+
+        if(!result._id){
+            CustomError.createError({
+                code: errorsEnum.BAD_REQUEST,
+                message: "El resultado del partido no ha podido ser cargado.",
+                cause: result
+            })
+        }
+        res.status(200).json({mesagge:"Resultado agregado correctamente."})
     }catch (error) {
         next(error)
     }

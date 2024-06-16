@@ -1,5 +1,8 @@
-import { dtoCreateLegue } from "../dto/dto.league"
-import { leagueService, matchService } from "../services/service"
+import { dtoCreateLegue } from "../dto/dto.league.js"
+import CustomError from "../errors/custom/CustomError.js"
+import errorsEnum from "../errors/errors.enum.js"
+import { leagueService, matchService } from "../services/service.js"
+
 
 
 
@@ -13,7 +16,7 @@ export const getLeagueById = async (req,res,next)=>{
                 message: "Liga no encontrada."
             })
         }
-        res.status(200).json(match)
+        res.status(200).json(league)
     }catch (error) {
         next(error)
     }
@@ -26,11 +29,11 @@ export const createLeague = async (req,res,next)=>{
         if(!newLeague._id){
             CustomError.createError({
                 code:errorsEnum.BAD_REQUEST,
-                cause: newMatch,
+                cause: newLeague,
                 message: "Error al crear liga."
             })
         }
-        res.status(201).json(newMatch)
+        res.status(201).json(newLeague)
     }catch (error) {
         next(error)
     }
@@ -68,9 +71,9 @@ export const addMatch = async (req,res,next)=>{
                 message: "El partido que intenta ingresar a la liga ya está dentro de otra liga."
             })
         }
-
+        
         const updateLeague = await leagueService.addMatch(idMatch,idLeague)
-
+        
         if(!updateLeague?._id){
             CustomError.createError({
                 code: errorsEnum.BAD_REQUEST,

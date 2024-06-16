@@ -3,7 +3,7 @@ export class dtoCreateMatch{
         this.description = data.description;
         this.fN = data.fN;
         this.typeField = data.typeField;
-        this.timeRange = data.timeRange;
+        this.time = data.time;
         this.ageRange = data.ageRange;
         this.typeGender = data.typeGender;
         this.location = data.location;

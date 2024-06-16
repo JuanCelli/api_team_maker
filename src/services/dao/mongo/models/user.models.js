@@ -1,5 +1,17 @@
 import { Schema,model} from "mongoose";
 
+
+const statsLeaguePlayerSchema = new Schema({
+  id_league: {type: Schema.Types.ObjectId,ref: 'leagues',required: true},
+  elo: {type: Number,default:1200},
+  played: {type: Number,default:0},
+  wins: {type: Number,default:0},
+  losses: {type: Number,default:0},
+  ties: {type: Number,default:0},
+  goals: {type: Number,default:0}
+})
+
+
 const userSchema = new Schema({
     first_name: {type:String, required: true},
     last_name: {type:String, required: true},
@@ -11,18 +23,10 @@ const userSchema = new Schema({
     registeredBy:{type: String,default: "local"},
     role:{type:String, default:"user"},
     last_connection: {type:Date, default: Date.now},
-    leagues:{type:[leagueSchemaPlayer], default:[]}
+    stats_league:{type:[statsLeaguePlayerSchema], default:[]}
 })
 
-const leagueSchemaPlayer = new Schema({
-    id: {type: Schema.Types.ObjectId,ref: 'leagues',required: true},
-    elo: {type: Number,default:1200},
-    played: {type: Number,default:0},
-    wins: {type: Number,default:0},
-    losses: {type: Number,default:0},
-    ties: {type: Number,default:0},
-    goals: {type: Number,default:0}
-  })
+
 
 const userModel = model ("users",userSchema)
 export default userModel

@@ -1,4 +1,5 @@
 import matchModel from "./models/match.models.js";
+import resultModel from "./models/result.models.js";
 import userModel from "./models/user.models.js";
 
 
@@ -60,6 +61,17 @@ class MatchManagerMongo{
             return error
         }
     }
+    async updateResult(data){
+        try {
+            const result = await resultModel.create(data)
+            const match = await matchModel.findByIdAndUpdate(data.match, {finished:true,result:result._id})
+
+            return result
+        } catch (error){
+            return error
+        }
+    }
+
 }
 
 export default MatchManagerMongo = new MatchManagerMongo()

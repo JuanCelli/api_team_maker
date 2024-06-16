@@ -30,7 +30,7 @@ class LeagueManagerMongo{
             if(!league){
                 return null
             }
-            const leagueUpdate = await leagueModel.findByIdAndUpdate(idLeague,{$push:{matches:id}},{new:true, useFindAndModify:false})
+            const leagueUpdate = await leagueModel.findByIdAndUpdate(idLeague,{$push:{matches:idMatch}},{new:true, useFindAndModify:false})
             const matchUpdate = await matchModel.findByIdAndUpdate(idMatch,{league:idLeague},{new:true, useFindAndModify:false})
             return leagueUpdate
         } catch (error){

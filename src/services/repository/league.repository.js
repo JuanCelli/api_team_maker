@@ -9,6 +9,6 @@ export default class MatchRepository {
         return this.dao.getLeagueById(id);
     }
     addMatch = (idMatch,idLeague) => {
-        return this.dao.addMatch(id);
+        return this.dao.addMatch(idMatch,idLeague);
     }
 }

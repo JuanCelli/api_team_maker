@@ -4,7 +4,8 @@ import errorsEnum from "../errors/errors.enum.js";
 
 const ids = [
     "id",
-    "idMatch"
+    "idMatch",
+    "idLeague"
 ]
 
 export const validInputId = (req, res, next) => {

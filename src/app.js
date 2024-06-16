@@ -2,6 +2,7 @@ import express from 'express'
 import authRouter from './routers/auth.router.js'
 import usersRouter from './routers/users.router.js'
 import matchesRouter from './routers/matches.router.js'
+import leaguesRouter from './routers/leagues.router.js'
 import mongoose from 'mongoose'
 import config from './config/config.js'
 import initializePassport from './auth/passport.config.js'
@@ -42,6 +43,7 @@ app.use(express.json())
 app.use("/auth",authRouter)
 app.use("/users",usersRouter)
 app.use("/matches",matchesRouter)
+app.use("/leagues",leaguesRouter)
 
 app.use(ErrorHandler)
 
